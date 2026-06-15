@@ -285,7 +285,7 @@ public class MenuPrincipal {
                         System.out.println("\nMatriz ingresada:");
                         matrizEcuacion.mostrar();
 
-                        // Ejecución del método
+                        // Ejecución del método de la matriz
                         MatrizInversa calculadorInversa = new MatrizInversa();
                         Matriz resultadoInversa = calculadorInversa.calcular(matrizEcuacion);
 
