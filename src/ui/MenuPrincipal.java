@@ -10,6 +10,8 @@ import methods.NewtonRaphson;
 import methods.Secante;
 import models.Polinomio;
 import models.Punto;
+import methods.MatrizInversa;
+import models.Matriz;
 
 public class MenuPrincipal {
     // Punto de entrada que muestra el menu principal y coordina la ejecucion de los metodos numericos.
@@ -27,7 +29,8 @@ public class MenuPrincipal {
             System.out.println("----------------------------------------");
             System.out.println("1. Metodos de Raices");
             System.out.println("2. Interpolacion");
-            System.out.println("3. Salir");
+            System.out.println("3. Metodo para matriz");
+            System.out.println("4. Salir");
             System.out.print("Seleccione una opcion: ");
 
             int opcion = scanner.nextInt();
@@ -247,9 +250,59 @@ public class MenuPrincipal {
                     System.out.println("Opcion no valida.");
                 }
             } else if (opcion == 3) {
-                System.out.println("Saliendo del programa.");
+                while (true) {
+                    System.out.println("========================================");
+                    System.out.println("Matrices");
+                    System.out.println("========================================");
+                    System.out.println("0. Volver");
+                    System.out.println("1. Matriz nxn inversa por metodo adjunta.");
+                    System.out.print("Seleccione un metodo: ");
+                    int metodoMatriz = scanner.nextInt();
+
+                    if (metodoMatriz == 0) {
+                        break;
+                    }
+
+                    if (metodoMatriz == 1) {
+                        System.out.print("Ingrese la dimension n de la matriz cuadrada (nxn): ");
+                        int n = scanner.nextInt();
+
+                        if (n <= 0) {
+                            System.out.println("Dimension invalida.");
+                            continue;
+                        }
+
+                        Matriz matrizEcuacion = new Matriz(n);
+                        System.out.println("Ingrese los elementos de la matriz fila por fila:");
+                        for (int i = 0; i < n; i++) {
+                            for (int j = 0; j < n; j++) {
+                                System.out.printf("Elemento [%d][%d]: ", i + 1, j + 1);
+                                double valor = scanner.nextDouble();
+                                matrizEcuacion.setCelda(i, j, valor);
+                            }
+                        }
+
+                        System.out.println("\nMatriz ingresada:");
+                        matrizEcuacion.mostrar();
+
+                        // Ejecución del método
+                        MatrizInversa calculadorInversa = new MatrizInversa();
+                        Matriz resultadoInversa = calculadorInversa.calcular(matrizEcuacion);
+
+                        if (resultadoInversa != null) {
+                            System.out.println("\nLa Matriz Inversa calculada es:");
+                            resultadoInversa.mostrar();
+                        }
+                        break; // Volver al menú principal tras terminar
+                    } else {
+                        System.out.println("Opcion no valida.");
+                    }
+                }
+            } else if (opcion == 4){
+                System.out.println("Saliendo del programa...");
                 continuar = false;
-            } else {
+            }
+            else {
                 System.out.println("Opcion no valida.");
             }
         }
